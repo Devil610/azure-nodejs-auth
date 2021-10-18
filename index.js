@@ -13,7 +13,7 @@ const app = express()
 app.use('/', express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.json())
 
-app.post('/auth/register', async (req, res)=>{
+app.post('/auth', async (req, res)=>{
     console.log(req.body);
     res.json({status: 'ok'})
 })

@@ -7,7 +7,7 @@ async function regUser(event){
     const email = document.getElementById('reg-email').value
     const password = document.getElementById('reg-password').value
 
-    const result = await fetch('/auth/register', {
+    const result = await fetch('/auth/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
