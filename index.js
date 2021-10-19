@@ -1,22 +1,19 @@
 const express = require('express')
 const path = require('path')
-const bodyParser = require('body-parser')
-const mongoose = require('mongoose')
-const User = require('./model/user')
+
+//Routes
+const routeAuth = require('./routes/auth')
+
 
 const port = process.env.PORT || 3000
 
-mongoose.connect('mongodb://localhost:27017/login-app-db')
 const app = express()
 
 
 app.use('/', express.static(path.join(__dirname, 'public')))
-app.use(bodyParser.json())
+app.get('/', (req, res)=>res.redirect('/auth/'))
+app.use('/auth/', routeAuth)
 
-app.post('/auth', async (req, res)=>{
-    console.log(req.body);
-    res.json({status: 'ok'})
-})
 
 
 app.listen(port, ()=>{

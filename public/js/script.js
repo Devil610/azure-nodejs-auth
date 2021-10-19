@@ -7,7 +7,7 @@ async function regUser(event){
     const email = document.getElementById('reg-email').value
     const password = document.getElementById('reg-password').value
 
-    const result = await fetch('/auth/', {
+    const result = await fetch('/auth/Register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -15,5 +15,13 @@ async function regUser(event){
         body: JSON.stringify({
             name, email, password
         })
-    })
+    }).then((res) => res.json())
+
+    if (result.status === 'ok'){
+        alert("User created succesfuly")
+    }
+    else{
+        alert(result.error)
+    }
 }
+
