@@ -34,13 +34,13 @@
           <div class="title">Login</div>
           <form action="#">
             <div class="input-boxes">
-              <div class="input-box">
+              <div class="input-box"  id="login-email-err">
                 <i class="fas fa-envelope"></i>
-                <input type="text" placeholder="Enter your email" required>
+                <input type="text" id="login-email" placeholder="Enter your email" required>
               </div>
-              <div class="input-box">
+              <div class="input-box"  id="login-password-err">
                 <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Enter your password" required>
+                <input type="password" id="login-password" placeholder="Enter your password" required>
               </div>
               <div class="text"><a href="#">Forgot password?</a></div>
               <div class="button input-box">
@@ -54,17 +54,17 @@
           <div class="title">Signup</div>
           <form id="reg-form" action="#">
             <div class="input-boxes">
-              <div class="input-box">
+              <div class="input-box" id="reg-name-err">
                 <i class="fas fa-user"></i>
                 <input type="text" placeholder="Enter your name" id="reg-name" required>
               </div>
-              <div class="input-box">
+              <div class="input-box" id="reg-email-err">
                 <i class="fas fa-envelope"></i>
                 <input type="email" placeholder="Enter your email" id="reg-email" required>
               </div>
-              <div class="input-box">
+              <div class="input-box" id="reg-password-err">
                 <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Enter your password" id="reg-password" required>
+                <input type="password" placeholder="Enter your password" id="reg-password" minlength="8" required>
               </div>
               <div class="button input-box">
                 <input type="submit" value="Sumbit">

@@ -214,3 +214,15 @@ body{
     display: none;
   }
 }
+
+
+
+/* Error Css */
+.field-error i, .field-error input{
+  color: red !important;
+  border-color: red !important;
+}
+.field-error input::placeholder{
+  color: red !important;
+  font-size: 12px;
+}
