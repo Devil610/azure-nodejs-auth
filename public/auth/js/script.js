@@ -1,5 +1,8 @@
-const form = document.getElementById('reg-form')
-form.addEventListener('submit', regUser)
+const regForm = document.getElementById('reg-form')
+regForm.addEventListener('submit', regUser)
+
+const loginForm = document.getElementById('login-form')
+loginForm.addEventListener('submit', loginUser)
 
 function showErr(type, field, text){
     conatiner = document.getElementById(`${type}-${field}-err`)
@@ -16,7 +19,7 @@ async function regUser(event){
     const email = document.getElementById('reg-email').value
     const password = document.getElementById('reg-password').value
 
-    const result = await fetch('/auth/Register', {
+    const result = await fetch('/auth/signup', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -34,3 +37,28 @@ async function regUser(event){
     }
 }
 
+
+async function loginUser(event){
+    event.preventDefault()
+    const email = document.getElementById('login-email').value
+    const password = document.getElementById('login-password').value
+
+    const result = await fetch('/auth/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email, password
+        })
+    }).then((res) => res.json())
+
+    if (result.status === 'ok'){
+        localStorage.setItem('token', result.data)
+        window.location.replace('/')
+    }
+    else{
+        showErr('login', 'email', result.error)
+        showErr('login', 'password', '')
+    }
+}

@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 const bodyParser = require('body-parser')
+const jwt = require('jsonwebtoken')
 
 const router = express.Router()
 
@@ -10,10 +11,36 @@ const User = require('../model/user')
 //Connecting to mongodb
 mongoose.connect('mongodb://localhost:27017/auth');
 
+const JWT_SECRET = require('../JWT_SECRET')
+
 router.use(bodyParser.json())
 
 
-router.post('/Register', async (req, res)=>{
+router.post('/login', async (req, res)=>{
+    console.log(req.body)
+    const {email, password: plainTextPassword} = req.body
+
+    const user = await User.findOne({email}).lean()
+    
+    if(!user){
+        res.json({status: 'error', error: 'Invalid Username/Password'})
+    }
+    if(await bcrypt.compare(plainTextPassword, user.password)){
+        const token = jwt.sign(
+            {
+                id: user._id,
+                email: user.email
+            },
+            JWT_SECRET
+        )
+
+        res.json({status: 'ok', data: token})
+    }
+    
+    res.json({status: 'error', error: 'Invalid Username/Password'})
+})
+
+router.post('/signup', async (req, res)=>{
 
     const {name, email, password: plainTextPassword} = req.body
     var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
