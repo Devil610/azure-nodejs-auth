@@ -10,7 +10,7 @@ const port = process.env.PORT || 3000
 
 const app = express()
 
-const JWT_SECRET = require('./JWT_SECRET')
+const JWT_SECRET = process.env.APPSETTING_JWT_SECRET || require('./JWT_SECRET')
 
 
 app.use(bodyParser.json())

@@ -9,15 +9,14 @@ const router = express.Router()
 //User Model
 const User = require('../model/user')
 //Connecting to mongodb
-mongoose.connect('mongodb://localhost:27017/auth');
+mongoose.connect(process.env.CUSTOMCONNSTR_mongodbConnect || 'mongodb://localhost:27017/auth');
 
-const JWT_SECRET = require('../JWT_SECRET')
+const JWT_SECRET = process.env.APPSETTING_JWT_SECRET || require('../JWT_SECRET')
 
 router.use(bodyParser.json())
 
 
 router.post('/login', async (req, res)=>{
-    console.log(req.body)
     const {email, password: plainTextPassword} = req.body
 
     const user = await User.findOne({email}).lean()
